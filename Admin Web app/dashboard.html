@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <title>Smart Market Admin</title>
+        <meta charset="utf-8">
+ 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+        <link rel="stylesheet" href="/assets/css/bootstrap.css">
+        <link rel="stylesheet" href="/assets/css/mdb.css">
+        <link rel="stylesheet" href="dashboard.css">
+    </head>
+    <body>
+
+        <div class="container-for-admin">
+            <!--Main Navigation-->
+              <header>
+            
+                <!-- Navbar -->
+                <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+                  <div class="container-fluid">
+            
+                    <!-- Brand -->
+                    <a class="navbar-brand waves-effect" href="#" target="_blank">
+                      <strong class="red-text">Smart Market Admin</strong>
+                    </a>
+            
+                    <!-- Collapse -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+            
+                    <!-- Links -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+                      <!-- Left -->
+                      <ul class="navbar-nav mr-auto">
+                    
+                    <li class="nav-item active">
+                      <a class="nav-link waves-effect" href="#topselling" target="_blank">Top selling</a>
+                    </li>
+                    
+                        
+                        <li class="nav-item ">
+                          <a class="nav-link waves-effect" href="#tables">Tables
+                          </a></li>
+
+                          <li class="nav-item ">
+                            <a class="nav-link waves-effect" href="#Bundles">Bundles
+                            </a></li>
+                            <li class="nav-item ">
+                                <a class="nav-link waves-effect" href="#onshelf">On Shelf vs Total products
+                                </a></li>
+                        
+                      </ul>
+            
+                      <!-- Right -->
+                      <ul class="navbar-nav nav-flex-icons">
+                       
+                          <a href="index.html" class="nav-link border border-light rounded waves-effect"
+                            target="_blank">
+                            Sign out
+                          </a>
+                        </li>
+                      </ul>
+            
+                    </div>
+            
+                  </div>
+                </nav>
+                <!-- Navbar -->
+            
+                <!-- Sidebar -->
+                <div class="sidebar-fixed position-fixed">
+            
+                  <a class="logo-wrapper waves-effect">
+                    <img src="imgs/New Project (40).png" class="img-fluid" alt="">
+                  </a>
+            
+                  <div class="list-group list-group-flush">
+                    <a href="dashboard.html" class="list-group-item active waves-effect">
+                      <i class="fa fa-pie-chart mr-3"></i>Dashboard
+                    </a>
+                    <a href="products.html" class="list-group-item list-group-item-action waves-effect">
+                      <i class="fa fa-table mr-3"></i>Products</a>
+                    <a href="modify.html" class="list-group-item list-group-item-action waves-effect">
+                      <i class="fa fa-table mr-3"></i>Modify the Database</a>
+                     
+                        
+
+                            <a href="https://host-web1.web.app/" class="list-group-item list-group-item-action waves-effect">
+                                <i class="fa fa-user mr-3"></i>Home User</a>
+                    
+                  </div>
+            
+                </div>
+                <!-- Sidebar -->
+            
+              </header>
+              <!--Main Navigation-->
+            
+              <!--Main layout-->
+              <main class="pt-5 mx-lg-5">
+                <div class="container-fluid mt-5">
+            
+                  <!-- Heading -->
+                  <div class="card mb-4 wow fadeIn">
+            
+                    <!--Card content-->
+                    <div class="card-body d-sm-flex justify-content-between">
+            
+                      <h4 class="mb-2 mb-sm-0 pt-1">
+                        <a href="#" target="_blank">Home Page</a>
+                        <span>/</span>
+                        <span>Dashboard</span>
+                      </h4>
+            
+            
+            
+                    </div>
+            
+                  </div>
+                  <!-- Heading -->
+            <section id="topselling">
+                  <!--Grid row-->
+                  <div class="row wow fadeIn">
+            
+                    <!--Grid column-->
+                    <div class="col-md-9 mb-4">
+            
+                      <!--Card-->
+                      <div class="card">
+            
+                        <!--Card content-->
+                        <div class="card-body">
+            
+                          <canvas id="myChart"></canvas>
+            
+                        </div>
+            
+                      </div>
+                      <!--/.Card-->
+            
+                    </div>
+                    <!--Grid column-->
+            
+                    <!--Grid column-->
+                    <div class="col-md-3 mb-4">
+            
+                      <!--Card-->
+                      <div class="card mb-4">
+            
+                        <!-- Card header -->
+                        <div class="card-header text-center">
+                          Top Selling
+                        </div>
+            
+                        <!--Card content-->
+                        <div class="card-body">
+            
+                          <canvas id="pieChart"></canvas>
+            
+                        </div>
+            
+                      </div>
+                      <!--/.Card-->
+            
+             
+                      </div>
+                      <!--/.Card-->
+            
+                    </div>
+                    <!--Grid column-->
+            
+                  </div>
+                  <!--Grid row-->
+            
+
+                </section>
+
+                <section id="tables">
+
+
+
+                  <!--Grid row-->
+                  <div class="row wow fadeIn">
+            
+                    <!--Grid column-->
+                    <div class="col-md-6 mb-4">
+            
+                      <!--Card-->
+                      <div class="card">
+            
+                        <!--Card content-->
+                        <div class="card-body">
+            
+                          <!-- Table  -->
+                          <table class="table table-hover">
+                            <!-- Table head -->
+                            <thead class="blue-grey lighten-4">
+                              <tr>
+                                <th>#</th>
+                                <th>Barcode</th>
+                                <th>Name</th>
+                                <th>Top Selling</th>
+                              </tr>
+                            </thead>
+                            <!-- Table head -->
+            
+                            <!-- Table body -->
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>797776111084</td>
+                                <td>mineral water</td>
+                                <td>1788</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>799439792487</td>
+                                <td>eggs</td>
+                                <td>1348</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>799439792494</td>
+                                <td>Spaghetti</td>
+                                <td>1306</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">4</th>
+                                <td>799439792500</td>
+                                <td>french fries</td>
+                                <td>1306</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">5</th>
+                                <td>799439792517</td>
+                                <td>chocolate</td>
+                                <td>1230</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">6</th>
+                                <td>799439792524</td>
+                                <td>green tea</td>
+                                <td>991</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">7</th>
+                                <td>799439792531</td>
+                                <td>milk</td>
+                                <td>972</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">8</th>
+                                <td>799439792548</td>
+                                <td>ground beef</td>
+                                <td>737</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">9</th>
+                                <td>799439792555</td>
+                                <td>frozen vegetables</td>
+                                <td>715</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">10</th>
+                                <td>701197168169</td>
+                                <td>pancakes</td>
+                                <td>713</td>
+                              </tr>
+                            </tbody>
+                            <!-- Table body -->
+                          </table>
+                          <!-- Table  -->
+            
+                        </div>
+            
+                      </div>
+                      <!--/.Card-->
+            
+                    </div>
+                    <!--Grid column-->
+            
+                    <!--Grid column-->
+                    <div class="col-md-6 mb-4">
+            
+                      <!--Card-->
+                      <div class="card">
+            
+                        <!--Card content-->
+                        <div class="card-body">
+            
+                          <!-- Table  -->
+                          <table class="table table-hover">
+                            <!-- Table head -->
+                            <thead class="blue lighten-4">
+                              <tr>
+                                <th>#</th>
+                                <th>Bar Code</th>
+                                <th>Name</th>
+                                <th>Lowest Sellings</th>
+                              </tr>
+                            </thead>
+                            <!-- Table head -->
+            
+                            <!-- Table body -->
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>797776236411</td>
+                                <td>asparagus</td>
+                                <td>1</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>797776236404</td>
+                                <td>water spray</td>
+                                <td>3</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>797776236510</td>
+                                <td>napkins</td>
+                                <td>5</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">4</th>
+                                <td>797776236503</td>
+                                <td>cream</td>
+                                <td>7</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">5</th>
+                                <td>797776236497</td>
+                                <td>bramble</td>
+                                <td>14</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">6</th>
+                                <td>797776236480</td>
+                                <td>tea</td>
+                                <td>29</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">7</th>
+                                <td>797776236589</td>
+                                <td>chutney</td>
+                                <td>31</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">8</th>
+                                <td>797776236473</td>
+                                <td>mashed potato</td>
+                                <td>31</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">9</th>
+                                <td>797776236572</td>
+                                <td>chocolate bread</td>
+                                <td>32</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">10</th>
+                                <td>797776236565</td>
+                                <td>oatmeal</td>
+                                <td>33</td>
+                              </tr>
+                            </tbody>
+                            <!-- Table body -->
+                          </table>
+                          <!-- Table  -->
+            
+                        </div>
+            
+                      </div>
+                      <!--/.Card-->
+            
+                    </div>
+                    <!--Grid column-->
+            
+                  </div>
+                  <!--Grid row-->
+                </section>
+
+
+                <section id="Bundles">
+                  <!--Grid row-->
+                  <div class="row wow fadeIn">
+            
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-6 mb-4">
+            
+                      <!--Card-->
+                      <div class="card">
+            
+                        <!-- Card header -->
+                        <div class="card-header">Monthly bundle sales</div>
+            
+                        <!--Card content-->
+                        <div class="card-body">
+            
+                          <canvas id="lineChart"></canvas>
+            
+                        </div>
+            
+                      </div>
+                      <!--/.Card-->
+            
+                    </div>
+                    <!--Grid column-->
+            
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-6 mb-4">
+            
+                      <!--Card-->
+                      <div class="card">
+            
+                        <!-- Card header -->
+                        <div class="card-header">Radar Chart</div>
+            
+                        <!--Card content-->
+                        <div class="card-body">
+            
+                          <canvas id="radarChart"></canvas>
+            
+                        </div>
+            
+                      </div>
+                      <!--/.Card-->
+            
+                    </div>
+                    <!--Grid column-->
+                </section>
+
+
+               
+                    <!--Grid column-->
+                    <div class="col-sm-12" >
+            
+                      <!--Card-->
+                      <div class="card text-center" >
+                        <section id="onshelf">
+                        <!-- Card header -->
+                        <div class="card-header">On Shelf Vs Total products</div>
+            
+                        <!--Card content-->
+                        <div class="card-body">
+            
+                          <canvas id="doughnutChart"></canvas>
+            
+                        </div>
+            
+                      </div>
+                      <!--/.Card-->
+            
+                    </div>
+                    <!--Grid column-->
+            
+                    <!--Grid column-->
+                   
+                      <!--/.Card-->
+                    </section>
+                    
+              
+                   <script>
+                       
+                            // Line
+        var ctx = document.getElementById("myChart").getContext('2d');
+        
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Mineral water", "Eggs", "Spaghetti", "French fries", "Chocolate","green tea","	milk","ground beef","frozen vegetables"],
+                datasets: [{
+                    label: 'Top Sales of the monthes',
+                    data: [1788,1398,1306,1282,1230,991,972,737,715],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                         'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        //pie
+        var ctxP = document.getElementById("pieChart").getContext('2d');
+        var myPieChart = new Chart(ctxP, {
+            type: 'pie',
+            data: {
+                labels: ["Mineral water", "Eggs", "Spaghetti", "French fries", "Chocolate"],
+                datasets: [{
+                    data: [1788,1398,1306,1282,1230],
+                    backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                    hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: false
+            }
+        });
+
+
+        //line
+        var ctxL = document.getElementById("lineChart").getContext('2d');
+        var myLineChart = new Chart(ctxL, {
+            type: 'line',
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                datasets: [{
+                        label: "Bundle 1",
+                        backgroundColor: [
+                            'rgba(105, 0, 132, .2)',
+                        ],
+                        borderColor: [
+                            'rgba(200, 99, 132, .7)',
+                        ],
+                        borderWidth: 2,
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                    {
+                        label: "bundle 2",
+                        backgroundColor: [
+                            'rgba(0, 137, 132, .2)',
+                        ],
+                        borderColor: [
+                            'rgba(0, 10, 130, .7)',
+                        ],
+                        data: [28, 48, 40, 19]
+                    },
+                           {
+                        label: "bundle 3",
+                        backgroundColor: [
+                            'rgba(255, 206, 86, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 206, 86, 1)',
+                        ],
+                        data: [15, 50, 28, 70,60 ,40]
+                    },
+                         {
+                        label: "bundle 4",
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                        ],
+                        data: [40, 20, 54, 19,40,46,19]
+                    }
+                ]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+
+        //radar
+        var ctxR = document.getElementById("radarChart").getContext('2d');
+        var myRadarChart = new Chart(ctxR, {
+            type: 'radar',
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                datasets: [{
+                    label: "Bundle 1",
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    backgroundColor: [
+                            'rgba(105, 0, 132, .2)',
+                        ],
+                        borderColor: [
+                            'rgba(200, 99, 132, .7)',
+                        ],
+                        borderWidth: 2,
+                }, {
+                    label: "Bundle 2",
+                    data: [28, 48, 40, 19],
+                    backgroundColor: [
+                        'rgba(0, 250, 220, .2)',
+                    ],
+                    borderColor: [
+                        'rgba(0, 213, 132, .7)',
+                    ],
+                    borderWidth: 2
+                },{
+                    label: "Bundle 3",
+                    data: [15, 50, 28, 70,60 ,40],
+                    backgroundColor: [
+                            'rgba(255, 206, 86, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 206, 86, 1)',
+                        ],
+                    borderWidth: 2},
+                    {
+                    label: "Bundle 4",
+                    data: [40, 20, 54, 19,40,46,19],
+                    backgroundColor: [
+                            'rgba(0, 137, 132, .2)',
+                        ],
+                        borderColor: [
+                            'rgba(0, 10, 130, .7)',
+                        ],
+                    borderWidth: 2}
+              ]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        //doughnut
+        var ctxD = document.getElementById("doughnutChart").getContext('2d');
+        var myLineChart = new Chart(ctxD, {
+            type: 'doughnut',
+            data: {
+                labels: ["On Shelf", "at stock", "Total"],
+                datasets: [{
+                    data: [22800,91200,114000],
+                    backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C"],
+                    hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870"]
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+   new WOW().init();
+
+        // Regular map
+        function regular_map() {
+            var var_location = new google.maps.LatLng(40.725118, -73.997699);
+
+            var var_mapoptions = {
+                center: var_location,
+                zoom: 14
+            };
+
+            var var_map = new google.maps.Map(document.getElementById("map-container"),
+                var_mapoptions);
+
+            var var_marker = new google.maps.Marker({
+                position: var_location,
+                map: var_map,
+                title: "New York"
+            });
+        }
+
+        // Initialize maps
+        google.maps.event.addDomListener(window, 'load', regular_map);
+
+        
+                   </script>
+               
+            
+             
+
+
+
+                      
+                      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script src="dashboard.js"></script>
+    </body>
